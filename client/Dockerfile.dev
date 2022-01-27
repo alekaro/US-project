@@ -1,7 +1,6 @@
-FROM node:17.4.0-alpine
+FROM node:14.4.0-alpine
 WORKDIR /app
 COPY ./frontend-app/package.json ./
-RUN mkdir ./node_modules
 RUN npm install
 COPY ./frontend-app .
 CMD ["npm", "run", "start"]

@@ -5,4 +5,8 @@ RUN python3 -m venv /opt/venv
 COPY requirements.txt .
 RUN /opt/venv/bin/pip install -r requirements.txt
 COPY ./backend-app .
-CMD ["/opt/venv/bin/gunicorn", "-b :5000", "api:app"]
+
+ENV FLASK_ENV development
+
+EXPOSE 5000
+CMD ["/opt/venv/bin/gunicorn", "-b", ":5000", "api:app"]
