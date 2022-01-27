@@ -1,0 +1,8 @@
+FROM python:3.9.10-alpine
+WORKDIR /server
+# venv
+RUN python3 -m venv /opt/venv
+COPY requirements.txt .
+RUN /opt/venv/bin/pip install -r requirements.txt
+COPY ./backend-app .
+CMD ["/opt/venv/bin/gunicorn", "-b :5000", "api:app"]

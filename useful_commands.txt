@@ -1,0 +1,2 @@
+sudo docker images | awk '{print $3}' | grep -v IMAGE | sudo xargs docker rmi
+sudo docker ps -a | awk '{print $1}' | grep -v CONTAINER | sudo xargs docker rm
