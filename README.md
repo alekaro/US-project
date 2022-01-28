@@ -8,4 +8,8 @@ launching instruction
 4. run `/bin/sh ./scripts/init.sh`
 5. create and push newly created images to minikube's registry `/bin/sh ./scripts/create-and-push-images.sh`
 5. run `minikube kubectl -- apply -f k8s`
-6. remember to clean up after yourself `/bin/sh ./scripts/cleanup.sh`
+6. check available urls `minikube service list`
+7. remember to clean up after yourself `/bin/sh ./scripts/cleanup.sh`
+
+It might be important:
+https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
