@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: us-project_api
+          image: localhost:5000/us-project_client
           ports:
             - containerPort: 5000
           env:
