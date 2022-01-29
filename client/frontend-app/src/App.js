@@ -1,8 +1,10 @@
+import { Fragment } from "react";
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "./App.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import OtherPage from "./OtherPage";
 import MainComponent from "./MainComponent";
-import './App.css';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -18,7 +20,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -33,5 +35,23 @@ function App() {
     </div>
   );
 }
+
+// function App() {
+//   return (
+//     <Router>
+//       <Fragment>
+//         <header className="header">
+//           <div>This is a multicontainer application</div>
+//           <Link to="/">Home</Link>
+//           <Link to="/otherpage">Other page</Link>
+//         </header>
+//         <div className="main">
+//           <Route exact path="/" component={MainComponent} />
+//           <Route path="/otherpage" component={OtherPage} />
+//         </div>
+//       </Fragment>
+//     </Router>
+//   );
+// }
 
 export default App;
