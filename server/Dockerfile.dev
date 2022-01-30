@@ -1,6 +1,7 @@
-FROM python:3.9.10-alpine
+FROM python:3.9.10-slim-buster
 WORKDIR /server
 # venv
+RUN apt-get update && apt-get install -y python3-tk
 RUN python3 -m venv /opt/venv
 COPY requirements.txt .
 RUN /opt/venv/bin/pip install -r requirements.txt

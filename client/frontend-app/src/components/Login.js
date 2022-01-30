@@ -17,7 +17,12 @@ const Login = () => {
       event.preventDefault();
 
       await axios.post("/api/user/login", {
-        login
+        login: login,
+        password: password
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
       });
 
       setLogin("");
