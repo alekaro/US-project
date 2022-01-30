@@ -42,8 +42,10 @@ def register():
 
 @app.route('/api/user/login', methods=['POST'])
 def login():
-    cur.execute("""SELECT * from users""")
-
-    # print("LOGIN: ", login)
-    # print("PASSWORD: ", password)
-    return json.dumps(cur.fetchall()), 200, {'ContentType': 'application/json'}
+    data = request.get_json()
+    print("DATA: ", data)
+    cur.execute(
+        f"""SELECT login from users WHERE login='{data['login']}' AND password='{data['password']}'""")
+    row = cur.fetchone()
+    print("cur.fetchone()[0]: ", row)
+    return json.dumps({'login': row[0]} if row is not None else {}), 200, {'ContentType': 'application/json'}
