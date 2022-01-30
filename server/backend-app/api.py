@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 try:
     conn = psycopg2.connect(
-        "dbname='postgres' user='postgres' host='localhost' password='postgres_password'")
+        "dbname='postgres' user='postgres' host='postgres' password='postgres_password'")
     cur = conn.cursor()
 except:
     # print("I am unable to connect to the database")
