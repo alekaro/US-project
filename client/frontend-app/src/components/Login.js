@@ -2,16 +2,19 @@ import React, { useCallback, useState } from "react";
 import { Form } from "react-bootstrap"
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from "../lib/contextLib";
 
 const Login = () => {
+  const { userHasAuthenticated } = useAppContext();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  
   function validateForm() {
     return login.length > 5 && password.length > 5;
   }
+  
 
   const handleSubmit = useCallback(
     async event => {
@@ -23,8 +26,8 @@ const Login = () => {
       }).then((response) => {
         console.log(response);
         if("login" in response.data){
-          localStorage.setItem("token", response.data.login);
-          // navigate("/main");
+          userHasAuthenticated(true);
+          navigate("/main");
         }
       }).catch((error) => {
         console.log(error);
