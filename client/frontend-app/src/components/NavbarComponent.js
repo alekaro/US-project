@@ -9,7 +9,9 @@ import "./NavbarComponent.css";
 const NavbarComponent = () => {
   const { isAuthenticated, userHasAuthenticated } = useAppContext();
   function handleLogout() {
-    userHasAuthenticated(false);
+    localStorage.setItem('user_id', '')
+    localStorage.setItem('token', '')
+    userHasAuthenticated(!!localStorage.getItem('token'));
   }
 
   return (

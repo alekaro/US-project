@@ -8,7 +8,7 @@ import NavbarComponent from "./components/NavbarComponent";
 import { AppContext } from "./lib/contextLib";
 
 function App() {
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticated, userHasAuthenticated] = useState(!!localStorage.getItem('token'));
 
   return (
     <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>

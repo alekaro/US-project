@@ -14,7 +14,7 @@ const Login = () => {
   function validateForm() {
     return login.length > 5 && password.length > 5;
   }
-  
+
 
   const handleSubmit = useCallback(
     async event => {
@@ -26,7 +26,9 @@ const Login = () => {
       }).then((response) => {
         console.log(response);
         if("login" in response.data){
-          userHasAuthenticated(true);
+          localStorage.setItem('user_id', response.data.user_id)
+          localStorage.setItem('token', response.data.login);
+          userHasAuthenticated(!!localStorage.getItem('token'));
           navigate("/main");
         }
       }).catch((error) => {
@@ -34,6 +36,7 @@ const Login = () => {
       });
 
       setLogin("");
+      setPassword("");
     },
     [login, password]
   );

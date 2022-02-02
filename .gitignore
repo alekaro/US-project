@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 server/backend-app/venv
-database
+database/data/
 
 # testing
 /coverage
