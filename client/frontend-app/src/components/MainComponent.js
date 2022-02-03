@@ -4,7 +4,7 @@ import axios from "axios";
 import "./MainComponent.css";
 
 const MainComponent = () => {
-  const [values, setValues] = useState([]);
+  const [result, setResult] = useState("0");
   const [make, setMake] = useState("BMW");
   const [model, setModel] = useState("1 Series M");
   const [year, setYear] = useState("2011");
@@ -45,54 +45,71 @@ const MainComponent = () => {
         'city mpg': cityMPG
       }).then((response) => {
         console.log(response);
+        setResult(response.data.predicted_value);
       }).catch((error) => {
         console.log(error);
       });
 
-      setMake("");
-      setModel("");
-      setYear("");
-      setEngineFuelType("");
-      setEngineHP("");
-      setEngineCylinders("");
-      setTransmissionType("");
-      setDrivenWheels("");
-      setNumberOfDoors("");
-      // setVehicleSize("");
-      setVehicleStyle("");
-      setHighwayMPG("");
-      setCityMPG("");
+      // setMake("");
+      // setModel("");
+      // setYear("");
+      // setEngineFuelType("");
+      // setEngineHP("");
+      // setEngineCylinders("");
+      // setTransmissionType("");
+      // setDrivenWheels("");
+      // setNumberOfDoors("");
+      // // setVehicleSize("");
+      // setVehicleStyle("");
+      // setHighwayMPG("");
+      // setCityMPG("");
       // getAllNumbers();
     },
     [make, model, year, engineFuelType, engineHP, engineCylinders, transmissionType, drivenWheels, numberOfDoors, vehicleStyle, highwayMPG, cityMPG]
   );
+
+  var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
 
   // useEffect(() => {
   //   getAllNumbers();
   // }, []);
 
   return (
+    <>
     <Form onSubmit={evaluate}>
       <Form.Label>Podaj wszystkie dane wejściowe dla modelu</Form.Label>
-      <Form.Group className="mb-2">
-        <FloatingLabel 
-          controlId="floatingMake" 
-          label="Marka">
-          <Form.Control 
-            value={make} 
-            onChange={(e) => setMake(e.target.value)}
-          />
-        </FloatingLabel>
+      <Form.Group className="mb-3">
+        <Form.Select aria-label="Default select example"
+          value={make} 
+          onChange={(e) => setMake(e.target.value)}
+        >
+          <option>Marka</option>
+          <option value="BMW">BMW</option>
+          <option value="Audi">Audi</option>
+          <option value="FIAT">FIAT</option>
+          <option value="Nissan">Nissan</option>
+          <option value="Chrysler">Chrysler</option>
+        </Form.Select>
       </Form.Group>
       <Form.Group className="mb-3">
-      <FloatingLabel 
-          controlId="floatingMake" 
-          label="Marka">
-          <Form.Control 
-            value={model} 
-            onChange={(e) => setModel(e.target.value)}
-          />
-        </FloatingLabel>
+        <Form.Select aria-label="Default select example"
+          value={model} 
+          onChange={(e) => setModel(e.target.value)}
+        >
+          <option>Model</option>
+          <option value="1 Series">1 Series</option>
+          <option value="100">100</option>
+          <option value="124 Spider">124 Spider</option>
+          <option value="200">200</option>
+          <option value="200SX">200SX</option>
+        </Form.Select>
       </Form.Group>
       <Form.Group className="mb-2">
         <FloatingLabel 
@@ -110,9 +127,9 @@ const MainComponent = () => {
           onChange={(e) => setEngineFuelType(e.target.value)}
         >
           <option>Typ paliwa</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="premium unleaded (required)">premium unleaded (required)</option>
+          <option value="regular unleaded">regular unleaded</option>
+          <option value="diesel">diesel</option>
         </Form.Select>
       </Form.Group>
       <Form.Group className="mb-2">
@@ -141,9 +158,9 @@ const MainComponent = () => {
           onChange={(e) => setTransmissionType(e.target.value)}
         >
           <option>Typ skrzyni biegów</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="MANUAL">MANUAL</option>
+          <option value="AUTOMATIC">AUTOMATIC</option>
+          <option value="AUTOMATED_MANUAL">AUTOMATED_MANUAL</option>
         </Form.Select>
       </Form.Group>
       <Form.Group className="mb-3">
@@ -152,9 +169,9 @@ const MainComponent = () => {
           onChange={(e) => setDrivenWheels(e.target.value)}
         >
           <option>Napęd</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="rear wheel drive">rear wheel drive</option>
+          <option value="front wheel drive">front wheel drive</option>
+          <option value="four wheel drive">four wheel drive</option>
         </Form.Select>
       </Form.Group>
       <Form.Group className="mb-3">
@@ -163,9 +180,9 @@ const MainComponent = () => {
           onChange={(e) => setNumberOfDoors(e.target.value)}
         >
           <option>Liczba drzwi</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
         </Form.Select>
       </Form.Group>
       {/* <Form.Group className="mb-3">
@@ -185,9 +202,11 @@ const MainComponent = () => {
           onChange={(e) => setVehicleStyle(e.target.value)}
         >
           <option>Styl</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="Coupe">Coupe</option>
+          <option value="Convertible">Convertible</option>
+          <option value="Sedan">Sedan</option>
+          <option value="Wagon">Wagon</option>
+          <option value="4dr Hatchback">4dr Hatchback</option>
         </Form.Select>
       </Form.Group>
       <Form.Group className="mb-2">
@@ -212,6 +231,12 @@ const MainComponent = () => {
       </Form.Group>
       <Button type="submit">Submit</Button>
     </Form>
+    <div className="Home">
+      <div className="lander">
+        <h1>{formatter.format(result)}</h1>
+      </div>
+    </div>
+    </>
   );
 };
 

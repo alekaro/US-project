@@ -45,6 +45,7 @@ def login():
 @app.route('/api/evaluate', methods=['POST'])
 def evaluate():
     data = request.get_json()
+    print("data: ", data)
     converted_dict = convert_dict_to_df(data)
 
     with open('data_template.json', 'r') as fp:
